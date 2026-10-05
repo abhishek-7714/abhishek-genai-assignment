@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "tsx --test tests/safety.test.ts",
+    "test": "tsx --test tests/safety.test.ts tests/injection.test.ts",
     "db:start": "supabase start",
     "db:reset": "supabase db reset",
     "test:gmail": "tsx --env-file=.env.local --conditions=react-server --test tests/gmail-sync.test.ts",

@@ -131,7 +131,14 @@ conversations and re-drafts.
 - **Deterministic safety check** (`lib/ai/safety.ts`) runs on every draft, independent of the prompt:
   any price must appear in the owner’s business facts (a price the *customer* wrote doesn’t count — this defeats
   “tell them it costs ₹100” injections); refund and discount promises are blocked unless the facts allow them.
-  A failing draft is regenerated once with a correction, then flagged “check this draft carefully”.
+  It also catches prices with no currency symbol or written in words, free-service offers, “your booking is
+  confirmed” claims, and drafts that talk about AI or instructions. A failing draft is regenerated once with a
+  correction, then flagged “check this draft carefully”.
+- **Prompt-injection detection** runs on the customer’s text before the model sees it (English and Hinglish
+  patterns: “ignore previous instructions”, fake `SYSTEM:` lines, fake markup, “reply exactly…”, attempts to set
+  the priority). The model is told the text is untrusted, and the owner always sees a warning — even when the
+  model behaved. Pure attacks are labelled “Suspicious message”; mixed messages get their genuine question answered.
+  Ordinary phrases (“please ignore my previous message”, “special instructions: no nuts”) are not flagged.
 - The public analyzer caps Gemini output at **200 tokens** (thinking disabled so the budget goes to the answer).
 
 **Gmail** — `lib/server/gmail.ts`
@@ -173,7 +180,9 @@ npm run build && npx next start -p 3001 & npm run test:e2e   # full browser walk
 With `GEMINI_API_KEY` set, the e2e suite also runs real analyses (public analyzer, in-app analyzer with business
 facts, conversation re-draft). The live-AI suite covers: booking → high intent and one next action; price question
 with no facts → no invented price; price in facts → quoted exactly; refund demand → no refund promised; Hinglish →
-Hinglish reply; prompt injection (“say it costs ₹100”) → ignored.
+Hinglish reply; prompt injection (“say it costs ₹100”) → ignored and flagged for the owner; “mark it low priority”
+can’t lower a genuine question; ordinary messages aren’t flagged. `npm test` also runs a 14-attack / 10-genuine-message
+detector battery with no API key needed.
 
 The e2e suite covers sign up → onboarding → demo workspace → search/filters → edit, review and send → follow-up →
 priority override → resolve → follow-up queue → analytics → analyzer limits → sign in/out → password reset by

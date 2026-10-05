@@ -4,7 +4,7 @@ import { AppError } from "@/lib/errors";
 import { env } from "@/lib/server/env";
 import { errMessage, log } from "@/lib/server/log";
 import { buildUserPrompt, PromptMessage, RedraftStyle, SYSTEM_PROMPT } from "./prompt";
-import { checkReply } from "./safety";
+import { checkReply, detectInjection, INJECTION_REASON } from "./safety";
 import { analysisSchema, AnalysisResult, PRIORITIES, REPLY_LANGUAGES, REQUEST_TYPES, SENTIMENTS, URGENCIES } from "./types";
 
 /**
@@ -95,13 +95,17 @@ export async function analyzeConversation(input: AnalyzeInput): Promise<Analysis
   let correction: string | undefined;
   let lastReason: string | null = null;
 
+  // Detected independently of the model, so the owner is always told — even when the model behaves.
+  const injection = detectInjection(input.messages.filter((m) => m.role === "customer").map((m) => m.text).join("\n"));
+  if (injection) log("ai.injection_detected", { pattern: injection });
+
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     let text: string | undefined;
     let finish: string | undefined;
     try {
       const out = await withTimeout(
         generate({
-          contents: buildUserPrompt({ ...input, correction }),
+          contents: buildUserPrompt({ ...input, correction, suspicious: Boolean(injection) }),
           config: {
             systemInstruction: SYSTEM_PROMPT,
             responseMimeType: "application/json",
@@ -173,8 +177,8 @@ export async function analyzeConversation(input: AnalyzeInput): Promise<Analysis
 
     return {
       ...parsed.data,
-      needsReview: !verdict.ok,
-      reviewReason: verdict.ok ? null : lastReason,
+      needsReview: !verdict.ok || Boolean(injection),
+      reviewReason: [verdict.ok ? null : lastReason, injection ? INJECTION_REASON : null].filter(Boolean).join(" ") || null,
       model,
       inputTokens: inputTokens || null,
       outputTokens: outputTokens || null,

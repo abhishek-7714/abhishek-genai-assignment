@@ -4,6 +4,7 @@ type Event =
   | "ai.request_failed"
   | "ai.malformed_output"
   | "ai.safety_flag"
+  | "ai.injection_detected"
   | "gmail.oauth_failed"
   | "gmail.sync_failed"
   | "gmail.send_failed"
