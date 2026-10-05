@@ -1,0 +1,21 @@
+node_modules
+.next
+out
+next-env.d.ts
+*.tsbuildinfo
+.DS_Store
+.qa
+.env
+.env*.local
+.env.*
+!.env.example
+supabase/.temp
+supabase/.branches
+
+# Local reference material (not part of the app)
+/0bf5f0f56389a5cbfec06fcda2c70c52.mp4
+/followupos_reference_assets/
+/followupos_reference_assets.zip
+/photo-1753162657634-454a046ea091.avif
+/premium_photo-1664049685916-d0ab2ba2e019.avif
+/Screenshot*.png

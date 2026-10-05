@@ -1,0 +1,24 @@
+.factsHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.facts {
+  min-height: 220px;
+  font-family: var(--font-sans);
+}
+
+.help {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--sage-3);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--deep-green);
+}
+
+.help strong {
+  font-weight: 600;
+}

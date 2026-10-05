@@ -1,0 +1,549 @@
+.section {
+  position: relative;
+  background: var(--night);
+  color: var(--on-dark);
+  padding: clamp(40px, 6vw, 80px) 0 clamp(72px, 8vw, 110px);
+  overflow: hidden;
+}
+
+/* green bloom behind the header + card, like the reference's olive glow */
+.glow {
+  position: absolute;
+  left: 50%;
+  top: clamp(180px, 22vw, 320px);
+  width: min(1200px, 120vw);
+  height: 760px;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(42% 38% at 50% 40%, rgba(143, 179, 162, 0.55), rgba(36, 82, 71, 0.35) 45%, transparent 75%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.head {
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  color: #e3eddc;
+  max-width: 12em;
+}
+
+.lede {
+  margin-top: 20px;
+  color: var(--on-dark-muted);
+  max-width: 31rem;
+}
+
+/* Big card ------------------------------------------------------------ */
+.big {
+  position: relative;
+  margin-top: clamp(48px, 5vw, 72px);
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr);
+  gap: clamp(24px, 3vw, 48px);
+  padding: clamp(24px, 2.6vw, 36px);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, #fbfcf8 0%, #f1f5ef 100%);
+  color: var(--ink);
+  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.55);
+}
+
+.bigCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.bigNum {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-family: var(--font-serif);
+  font-size: clamp(3.4rem, 5vw, 4.6rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.bigUnit {
+  font-size: 0.42em;
+  letter-spacing: -0.01em;
+  color: var(--muted);
+}
+
+.quote {
+  margin-top: clamp(28px, 4vw, 56px);
+  font-size: clamp(1.35rem, 2vw, 1.75rem);
+  line-height: 1.2;
+}
+
+.desc {
+  margin-top: 14px;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 26rem;
+}
+
+.badge {
+  margin-top: auto;
+  padding-top: 28px;
+}
+
+.badge > span {
+  background: var(--sage-3);
+  box-shadow: none;
+}
+
+/* Chart */
+.chart {
+  position: relative;
+  padding: 26px 0 30px 34px;
+}
+
+.axisY {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.chartTag {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.plot {
+  position: relative;
+  aspect-ratio: 600 / 360;
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.grid {
+  stroke: rgba(17, 19, 18, 0.07);
+  stroke-dasharray: 2 4;
+}
+
+.stem {
+  stroke: rgba(36, 82, 71, 0.16);
+}
+
+.line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 2.2s var(--ease-in-out) 0.4s;
+}
+
+.area {
+  opacity: 0;
+  transition: opacity 1.4s ease 1.2s;
+}
+
+.chart[data-in="true"] .line {
+  stroke-dashoffset: 0;
+}
+
+.chart[data-in="true"] .area {
+  opacity: 1;
+}
+
+.node {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 50%;
+  background: var(--forest);
+  box-shadow: 0 0 0 4px rgba(36, 82, 71, 0.15);
+  transform: scale(0);
+  transition: transform 0.6s var(--ease-out) var(--d);
+}
+
+.node[data-accent] {
+  background: var(--ember);
+  box-shadow: 0 0 0 5px rgba(224, 138, 92, 0.22);
+}
+
+.chart[data-in="true"] .node {
+  transform: scale(1);
+}
+
+.tags {
+  position: absolute;
+  inset: 26px 0 30px 34px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  pointer-events: none;
+}
+
+.tags li {
+  --t: translate(14px, 40%);
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--white);
+  background: var(--forest);
+  transform: var(--t) scale(0.9);
+  opacity: 0;
+  transition:
+    opacity 0.6s var(--ease-out) var(--d),
+    transform 0.7s var(--ease-out) var(--d);
+}
+
+.tags li:nth-child(3) {
+  --t: translate(calc(-100% - 14px), 40%);
+}
+
+.tags li[data-accent] {
+  --t: translate(calc(-100% - 18px), -50%);
+  background: var(--ember);
+}
+
+.tagLabel {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.chart[data-in="true"] .tags li {
+  opacity: 1;
+  transform: var(--t);
+}
+
+.axisX {
+  position: absolute;
+  left: 34px;
+  right: 0;
+  bottom: 0;
+  height: 16px;
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.axisX span {
+  position: absolute;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.axisX span:first-child {
+  transform: none;
+}
+
+.axisX span:last-child {
+  transform: translateX(-90%);
+}
+
+/* Two cards ----------------------------------------------------------- */
+.pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 420px;
+  padding: clamp(22px, 2.4vw, 32px);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, #fbfcf8 0%, #f1f5ef 100%);
+  color: var(--ink);
+  overflow: hidden;
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.cardBig {
+  font-size: clamp(2.4rem, 3.8vw, 3.6rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.cardTag {
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.cardTitle {
+  margin-top: auto;
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.cardDesc {
+  margin-top: 6px;
+  font-size: 0.92rem;
+  color: var(--muted);
+  max-width: 24rem;
+}
+
+.dialRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin: 18px 0 22px;
+}
+
+.modes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.modes li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  background: rgba(36, 82, 71, 0.07);
+  color: rgba(17, 19, 18, 0.28);
+}
+
+.modes li::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.modes li[data-on] {
+  background: var(--forest);
+  color: var(--white);
+}
+
+@property --sweep {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.dial {
+  position: relative;
+  flex: none;
+  width: clamp(150px, 15vw, 200px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid var(--forest);
+}
+
+.dialFill {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(rgba(36, 82, 71, 0.28) 0deg, rgba(36, 82, 71, 0.08) var(--sweep), transparent var(--sweep));
+  transition: --sweep 2s var(--ease-in-out) 0.5s;
+}
+
+.dialRow[data-in="true"] .dialFill {
+  --sweep: 120deg;
+}
+
+.dial i {
+  position: absolute;
+  background: var(--forest);
+  opacity: 0.6;
+}
+
+.dial i:nth-of-type(1),
+.dial i:nth-of-type(2) {
+  left: 50%;
+  width: 2px;
+  height: 12px;
+  margin-left: -1px;
+}
+.dial i:nth-of-type(1) {
+  top: 0;
+}
+.dial i:nth-of-type(2) {
+  bottom: 0;
+}
+.dial i:nth-of-type(3),
+.dial i:nth-of-type(4) {
+  top: 50%;
+  width: 12px;
+  height: 2px;
+  margin-top: -1px;
+}
+.dial i:nth-of-type(3) {
+  left: 0;
+}
+.dial i:nth-of-type(4) {
+  right: 0;
+}
+
+.dial::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2px;
+  height: 44%;
+  margin-left: -1px;
+  background: var(--deep-green);
+  transform-origin: 50% 0;
+  transform: rotate(180deg);
+  transition: transform 2s var(--ease-in-out) 0.5s;
+}
+
+.dialRow[data-in="true"] .dial::after {
+  transform: rotate(300deg);
+}
+
+.dialLabel {
+  position: absolute;
+  left: 50%;
+  bottom: 22%;
+  transform: translateX(-50%);
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  color: var(--forest);
+}
+
+.replyWrap {
+  position: relative;
+  margin: 18px -32px 22px;
+  padding: 22px 32px 0;
+}
+
+.rise {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.replyCard {
+  position: relative;
+  max-width: 400px;
+  margin-left: auto;
+}
+
+/* Marquee ------------------------------------------------------------- */
+.marquee {
+  margin-top: clamp(56px, 6vw, 84px);
+}
+
+.marqueeLabel {
+  font-size: 1.05rem;
+  color: var(--on-dark-muted);
+}
+
+.track {
+  margin-top: 26px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.trackInner {
+  display: flex;
+  gap: clamp(36px, 5vw, 72px);
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+.trackInner span {
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  color: rgba(230, 239, 232, 0.5);
+  white-space: nowrap;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Responsive ---------------------------------------------------------- */
+@media (max-width: 960px) {
+  .big {
+    grid-template-columns: 1fr;
+  }
+  .quote {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 760px) {
+  .pair {
+    grid-template-columns: 1fr;
+  }
+  .card {
+    min-height: 380px;
+  }
+  .chart {
+    padding: 26px 0 30px 0;
+  }
+  .axisY {
+    display: none;
+  }
+  .axisX {
+    left: 0;
+    font-size: 0.62rem;
+  }
+  .axisX span:not(:first-child):not(:last-child) {
+    display: none;
+  }
+  .tags {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 40px;
+  }
+  .tags li,
+  .tags li:nth-child(3),
+  .tags li[data-accent] {
+    --t: none;
+    position: static;
+  }
+  .replyWrap {
+    margin-left: -22px;
+    margin-right: -22px;
+    padding: 18px 22px 0;
+  }
+}

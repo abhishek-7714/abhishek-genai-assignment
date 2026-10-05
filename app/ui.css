@@ -1,0 +1,343 @@
+/* ------------------------------------------------------------------
+   FollowUpOS application UI
+   Built on the landing page tokens in globals.css (colours, type,
+   radii, easing). Everything here is prefixed `ui-` so the approved
+   landing page is never affected.
+   ------------------------------------------------------------------ */
+
+.ui-surface {
+  min-height: 100vh;
+  min-height: 100svh;
+  background: var(--warm-white);
+  color: var(--ink);
+}
+
+/* Type */
+.ui-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2rem, 3.4vw, 2.9rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+}
+
+.ui-h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.35rem, 2vw, 1.7rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.ui-muted {
+  color: var(--muted);
+}
+
+.ui-label {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Cards */
+.ui-card {
+  background: var(--paper);
+  border: 1px solid rgba(17, 19, 18, 0.06);
+  border-radius: var(--radius-md);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 12px 32px -24px rgba(22, 53, 45, 0.28);
+}
+
+.ui-card-pad {
+  padding: clamp(18px, 2.2vw, 26px);
+}
+
+.ui-card-dark {
+  color: var(--on-dark);
+  border-radius: var(--radius-md);
+  background:
+    radial-gradient(80% 60% at 0% 0%, rgba(143, 179, 162, 0.32), transparent 70%),
+    linear-gradient(160deg, #2f5d4f 0%, #1d4038 50%, #132a24 100%);
+  box-shadow: 0 24px 50px -30px rgba(22, 53, 45, 0.6);
+}
+
+/* Forms */
+.ui-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ui-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.ui-field > label,
+.ui-legend {
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.ui-hint {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.ui-input,
+.ui-textarea,
+.ui-select {
+  width: 100%;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid rgba(17, 19, 18, 0.14);
+  border-radius: 14px;
+  padding: 12px 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.ui-input,
+.ui-select {
+  height: 48px;
+}
+
+.ui-textarea {
+  min-height: 140px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.ui-input:focus,
+.ui-textarea:focus,
+.ui-select:focus {
+  outline: none;
+  border-color: var(--forest);
+  box-shadow: 0 0 0 4px rgba(36, 82, 71, 0.12);
+}
+
+.ui-input[aria-invalid="true"],
+.ui-textarea[aria-invalid="true"] {
+  border-color: #b4553a;
+}
+
+.ui-field-error {
+  font-size: 0.8rem;
+  color: #a2492f;
+}
+
+.ui-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='%23737a76' stroke-width='1.4' stroke-linecap='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+/* Choice pills (radio groups) */
+.ui-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.ui-choices legend {
+  margin-bottom: 10px;
+}
+
+.ui-choice {
+  position: relative;
+}
+
+.ui-choice input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  cursor: pointer;
+}
+
+.ui-choice span {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  border: 1px solid rgba(17, 19, 18, 0.14);
+  background: var(--white);
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.ui-choice input:checked + span {
+  background: var(--deep-green);
+  border-color: var(--deep-green);
+  color: var(--paper);
+}
+
+.ui-choice input:focus-visible + span {
+  outline: 2px solid var(--forest);
+  outline-offset: 3px;
+}
+
+/* Buttons beyond the landing set */
+.btn[disabled],
+.btn[aria-disabled="true"] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-ghost {
+  color: var(--muted);
+}
+
+.btn-ghost:hover {
+  color: var(--ink);
+  background: rgba(17, 19, 18, 0.04);
+}
+
+.btn-danger {
+  border: 1px solid rgba(162, 73, 47, 0.35);
+  color: #a2492f;
+}
+
+.btn-danger:hover {
+  background: rgba(162, 73, 47, 0.06);
+}
+
+.btn-xs {
+  height: 32px;
+  padding: 0 13px;
+  font-size: 0.8rem;
+}
+
+/* Banners */
+.ui-banner {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  background: var(--sage-3);
+  border: 1px solid rgba(36, 82, 71, 0.14);
+}
+
+.ui-banner strong {
+  display: block;
+  font-weight: 600;
+}
+
+.ui-banner[data-tone="warn"] {
+  background: #fbf3e6;
+  border-color: rgba(160, 122, 60, 0.25);
+}
+
+.ui-banner[data-tone="error"] {
+  background: #fbefea;
+  border-color: rgba(162, 73, 47, 0.22);
+}
+
+.ui-banner[data-tone="demo"] {
+  background: repeating-linear-gradient(135deg, #f3efe2, #f3efe2 10px, #f6f2e7 10px, #f6f2e7 20px);
+  border-color: rgba(160, 122, 60, 0.25);
+}
+
+/* Loading */
+.ui-spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  animation: ui-spin 0.8s linear infinite;
+  flex: none;
+}
+
+@keyframes ui-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ui-skeleton {
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(17, 19, 18, 0.05), rgba(17, 19, 18, 0.09), rgba(17, 19, 18, 0.05));
+  background-size: 200% 100%;
+  animation: ui-shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes ui-shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* Entrance — the landing page's blur-up, used sparingly in the app */
+.ui-enter {
+  animation: ui-enter 0.7s var(--ease-out) both;
+  animation-delay: var(--enter-delay, 0ms);
+}
+
+@keyframes ui-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(6px);
+  }
+}
+
+/* Dialog */
+.ui-dialog {
+  width: min(520px, calc(100vw - 32px));
+  max-height: calc(100svh - 32px);
+  padding: 0;
+  border: 0;
+  border-radius: 24px;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 40px 80px -30px rgba(14, 27, 23, 0.5);
+}
+
+.ui-dialog[open] {
+  animation: ui-enter 0.45s var(--ease-out);
+}
+
+.ui-dialog::backdrop {
+  background: rgba(14, 27, 23, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.ui-dialog-body {
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ui-dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-enter,
+  .ui-dialog[open] {
+    animation: none;
+  }
+}

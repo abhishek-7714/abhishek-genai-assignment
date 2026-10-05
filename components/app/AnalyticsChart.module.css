@@ -1,0 +1,126 @@
+.figure {
+  margin: 0;
+  padding: 20px 22px;
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  border: 1px solid rgba(17, 19, 18, 0.06);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  letter-spacing: -0.015em;
+  margin-bottom: 16px;
+}
+
+.bars {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(110px, 0.9fr) minmax(0, 1.6fr) 36px;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 8px;
+  margin: 0 -8px;
+  border-radius: 10px;
+  outline: none;
+}
+
+.row:hover,
+.row:focus-visible {
+  background: var(--sage-3);
+}
+
+.row:focus-visible {
+  box-shadow: 0 0 0 2px var(--forest);
+}
+
+.label {
+  font-size: 0.86rem;
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.track {
+  height: 10px;
+}
+
+.bar {
+  display: block;
+  height: 100%;
+  min-width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: var(--forest);
+  transition: width 0.9s var(--ease-out);
+}
+
+.value {
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  text-align: right;
+}
+
+.tip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 4px);
+  z-index: 3;
+  display: none;
+  flex-direction: column;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 0.78rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.tip strong {
+  font-weight: 600;
+}
+
+.row:hover .tip,
+.row:focus-visible .tip {
+  display: flex;
+}
+
+.table {
+  margin-top: 14px;
+  font-size: 0.82rem;
+}
+
+.table summary {
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.table table {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 6px 4px;
+  border-bottom: 1px solid var(--line);
+  font-weight: 400;
+}
+
+.table thead th {
+  color: var(--muted);
+  font-weight: 500;
+}

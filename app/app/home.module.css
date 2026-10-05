@@ -1,0 +1,117 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 28px;
+  align-items: start;
+  margin-top: 8px;
+}
+
+.sectionHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.side {
+  position: sticky;
+  top: 92px;
+}
+
+.dueList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.due {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: var(--paper);
+  border: 1px solid rgba(17, 19, 18, 0.06);
+  border-left: 3px solid var(--forest);
+  transition: border-color 0.3s;
+}
+
+.due[data-late="true"] {
+  border-left-color: var(--ember);
+}
+
+.due:hover {
+  border-color: rgba(36, 82, 71, 0.25);
+}
+
+.dueWho {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.dueAction {
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+.dueWhen {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.due[data-late="true"] .dueWhen {
+  color: #9a4f27;
+}
+
+.principle {
+  margin-top: 22px;
+  padding: 18px;
+  border-radius: 18px;
+  color: var(--on-dark);
+  background:
+    radial-gradient(80% 70% at 0% 0%, rgba(143, 179, 162, 0.3), transparent 70%),
+    linear-gradient(160deg, #2f5d4f, #16352d);
+}
+
+.principle p {
+  font-size: 1.3rem;
+  line-height: 1.1;
+}
+
+.principle span {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.82rem;
+  color: var(--on-dark-muted);
+  line-height: 1.45;
+}
+
+@media (max-width: 1100px) {
+  .columns {
+    grid-template-columns: 1fr;
+  }
+  .side {
+    position: static;
+  }
+}
+
+@media (max-width: 760px) {
+  .metrics {
+    grid-template-columns: 1fr 1fr;
+  }
+}

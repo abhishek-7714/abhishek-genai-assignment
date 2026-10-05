@@ -1,0 +1,142 @@
+.shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-height: 100svh;
+  background: var(--paper);
+}
+
+.panel {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(24px, 2.6vw, 40px);
+  color: var(--white);
+  background:
+    radial-gradient(120% 90% at 8% 0%, #f6f8f1 0%, #d8e6dc 16%, rgba(168, 198, 182, 0.9) 32%, rgba(98, 140, 121, 0) 62%),
+    radial-gradient(90% 80% at 100% 100%, #16352d 0%, rgba(22, 53, 45, 0) 70%),
+    linear-gradient(160deg, #a9c6b6 0%, #5f8f7b 40%, #2f5d4f 75%, #1f4339 100%);
+  overflow: hidden;
+}
+
+.brand {
+  color: var(--white);
+  align-self: flex-start;
+  padding: 12px 18px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.card {
+  margin: 0;
+  width: min(380px, 100%);
+  align-self: center;
+  padding: 18px;
+  border-radius: 20px;
+  background: rgba(22, 53, 45, 0.34);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: float 7s ease-in-out infinite alternate;
+}
+
+@keyframes float {
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+.card p {
+  font-size: 1.1rem;
+  line-height: 1.35;
+}
+
+.rule {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.signal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 1.4rem;
+}
+
+.tagline {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  max-width: 11em;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(28px, 6vw, 80px);
+}
+
+.mobileBrand {
+  display: none;
+}
+
+.form {
+  width: min(420px, 100%);
+  margin: 0 auto;
+}
+
+.subtitle {
+  margin-top: 10px;
+  font-size: 0.98rem;
+}
+
+.body {
+  margin-top: 30px;
+}
+
+.footer {
+  margin-top: 24px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.footer a {
+  color: var(--forest);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+  .panel {
+    display: none;
+  }
+  .main {
+    justify-content: flex-start;
+    padding: 20px 20px 48px;
+  }
+  .mobileBrand {
+    display: inline-flex;
+    margin-bottom: 48px;
+    color: var(--deep-green);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+  }
+}

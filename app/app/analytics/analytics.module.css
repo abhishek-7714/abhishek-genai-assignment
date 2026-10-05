@@ -1,0 +1,84 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.unit {
+  margin-left: 6px;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+
+.charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.chartEmpty {
+  display: grid;
+  place-items: center;
+  min-height: 200px;
+  padding: 24px;
+  text-align: center;
+  border-radius: var(--radius-md);
+  border: 1px dashed rgba(17, 19, 18, 0.15);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.readback {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
+  gap: 20px;
+  padding: 22px 24px;
+  border-radius: var(--radius-md);
+  background: var(--mist);
+}
+
+.rbGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rbBig {
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.rbLine {
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.rbLine strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media (max-width: 1100px) {
+  .metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .metrics {
+    grid-template-columns: 1fr 1fr;
+  }
+  .charts,
+  .readback {
+    grid-template-columns: 1fr;
+  }
+}

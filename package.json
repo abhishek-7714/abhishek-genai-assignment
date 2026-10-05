@@ -1,0 +1,41 @@
+{
+  "name": "followupos",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "tsx --test tests/safety.test.ts",
+    "db:start": "supabase start",
+    "db:reset": "supabase db reset",
+    "test:gmail": "tsx --env-file=.env.local --conditions=react-server --test tests/gmail-sync.test.ts",
+    "test:ai": "tsx --env-file=.env.local --conditions=react-server --test tests/ai-cases.test.ts",
+    "test:e2e": "node --env-file=.env.local tests/e2e.mjs"
+  },
+  "dependencies": {
+    "@google/genai": "^2.27.0",
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.109.0",
+    "next": "^15.5.27",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "server-only": "^0.0.1",
+    "ws": "^8.22.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/ws": "^8.18.2",
+    "puppeteer-core": "^23.11.1",
+    "supabase": "^2.119.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=20.9"
+  }
+}

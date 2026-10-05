@@ -1,0 +1,160 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin-bottom: 12px;
+}
+
+.count {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: var(--paper);
+  border: 1px solid rgba(17, 19, 18, 0.06);
+  border-left: 4px solid var(--forest);
+}
+
+.card[data-late="true"] {
+  border-left-color: var(--ember);
+}
+
+.main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.who {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+}
+
+.action {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  line-height: 1.25;
+}
+
+.due {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.card[data-late="true"] .due {
+  color: #9a4f27;
+}
+
+.quote {
+  margin-top: 4px;
+  font-size: 0.86rem;
+  color: var(--muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.actions {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  flex: none;
+}
+
+.snooze {
+  position: relative;
+}
+
+.snooze summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.snooze summary::-webkit-details-marker {
+  display: none;
+}
+
+.snoozeMenu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 5;
+  width: 140px;
+  padding: 6px;
+  border-radius: 12px;
+  background: var(--paper);
+  border: 1px solid rgba(17, 19, 18, 0.08);
+  box-shadow: 0 16px 34px -16px rgba(14, 27, 23, 0.35);
+}
+
+.snoozeMenu button {
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  text-align: left;
+  font-size: 0.85rem;
+}
+
+.snoozeMenu button:hover {
+  background: var(--sage-3);
+}
+
+.calm {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--muted);
+}
+
+.done ul {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.done span {
+  color: var(--forest);
+  margin-right: 4px;
+}
+
+@media (max-width: 760px) {
+  .card {
+    flex-direction: column;
+    gap: 14px;
+  }
+  .actions {
+    flex-wrap: wrap;
+  }
+}
